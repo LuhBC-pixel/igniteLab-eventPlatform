@@ -1,10 +1,10 @@
 import { gql, useMutation } from '@apollo/client';
-import { useState, FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Logo } from '../components/Logo';
 
-const CREATE_SUBSCRIBE_MUTATION = gql`
-  mutation CreateSubscribe($name: String!, $email: String!) {
+const CREATE_SUBSCRIBER_MUTATION = gql`
+  mutation CreateSubscriber($name: String!, $email: String!) {
     createSubscriber(data: { name: $name, email: $email }) {
       id
     }
@@ -16,21 +16,23 @@ export function Subscribe() {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+
   const [createSubscriber, { loading }] = useMutation(
-    CREATE_SUBSCRIBE_MUTATION
+    CREATE_SUBSCRIBER_MUTATION
   );
 
-  const handleSubscribe = async (event: FormEvent) => {
+  async function handleSubscribe(event: FormEvent) {
     event.preventDefault();
+
     await createSubscriber({
       variables: {
-        name: name,
-        email: email,
+        name,
+        email,
       },
     });
 
     navigate('/event');
-  };
+  }
 
   return (
     <div className='min-h-screen bg-blur bg-cover bg-no-repeat flex flex-col items-center'>
@@ -41,7 +43,7 @@ export function Subscribe() {
           <h1 className='mt-8 text-[2.5rem] leading-tight'>
             Construa uma{' '}
             <strong className='text-blue-500'>aplicação completa</strong>, do
-            zero, com <strong className='text-blue-500'>React</strong>
+            zero, com <strong className='text-blue-500'>React JS</strong>
           </h1>
           <p className='mt-4 text-gray-200 leading-relaxed'>
             Em apenas uma semana você vai dominar na prática uma das tecnologias
