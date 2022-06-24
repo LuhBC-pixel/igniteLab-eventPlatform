@@ -8,7 +8,6 @@ import {
 } from 'phosphor-react';
 
 import '@vime/core/themes/default.css';
-import { da } from 'date-fns/locale';
 
 const GET_LESSON_BY_SLUG_QUERY = gql`
   query GetLessonBySlug($slug: String) {
@@ -54,7 +53,7 @@ export function Video({ lessonSlug }: VideoProps) {
       <div className='flex-1'>
         <p>Carregando...</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -62,7 +61,10 @@ export function Video({ lessonSlug }: VideoProps) {
       <div className='bg-black flex justify-center'>
         <div className='h-full w-full max-w-[1100px] max-h-[60vh] aspect-video'>
           <Player>
-            <Youtube videoId={data?.lesson.videoId} />
+            <Youtube
+              videoId={data?.lesson.videoId}
+              key={data?.lesson.videoId}
+            />
             <DefaultUi />
           </Player>
         </div>
